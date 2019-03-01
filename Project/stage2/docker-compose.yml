@@ -1,0 +1,20 @@
+version: '3'
+services:
+
+  web: 
+    build: ../stage1/HTTP-server
+    ports:
+      - "5000-5011:80"  
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: '0.05'
+       
+    
+advertise-addr
+  my-redis-container:
+    image: "redis"
+    volumes: 
+        - /var/cec/redis.rdb:/data/dump.rdb
+
