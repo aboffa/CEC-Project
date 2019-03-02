@@ -1,16 +1,39 @@
 version: '3'
 services:
 
-  web: 
+  web5:
+    image: 127.0.0.1:5000/stage2 
     build: ../stage1/HTTP-server
     ports:
-      - "5000-5011:80"  
+      - "80:80"
     deploy:
       replicas: 5
       resources:
         limits:
-          cpus: '0.05'
-       
+          cpus: '0.5'
+
+  web3:
+    image: 127.0.0.1:5000/stage2 
+    build: ../stage1/HTTP-server
+    ports:
+      - "81:80"
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: '0.5'
+    
+  web1:
+    image: 127.0.0.1:5000/stage2 
+    build: ../stage1/HTTP-server
+    ports:
+      - "82:80"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.5'
+    
   my-redis-container:
     image: "redis"
     volumes: 

@@ -25,8 +25,6 @@ echo "Stopping container"
 
 sudo docker stop $NAME_REDIS
 
-sudo docker stop $NAME_FLASK
-
 sudo docker stop $NAME_LOAD_BALANCER
 
 declare tmp_name=$NAME_FLASK

@@ -34,12 +34,12 @@ sleep 7
 cd HTTP-server &&  sudo docker build -t http-server:latest .
 
 declare tmp_name=$NAME_FLASK
-declare -i port=5000
+declare -i port=5001
 
 for ((i = 0; i < $NUMBER_SERVERS;i ++))
 do
    echo "$i) Running HTTP server on $tmp_name $port"
-   sudo docker run --cpus=".05" --rm --network $NAME_NETWORK --name $tmp_name -p $port:80 -d  http-server:latest
+   sudo docker run --cpus=".5" --rm --network $NAME_NETWORK --name $tmp_name -p $port:80 -d  http-server:latest
    port+=1
    tmp_name+="a"
    sleep 1
@@ -63,6 +63,8 @@ cd .. && cd Load-Balancer && sudo docker build -t load-balancer .
 sudo docker run --rm -e NUMBER_SERVERS=1 --network $NAME_NETWORK --name $NAME_LOAD_BALANCER -p 80:80 -d load-balancer
 
 sleep 1
+
+sudo docker ps -a 
 : '
 for ((i=0; i<$NUMBER_SERVERS;i++))
 do

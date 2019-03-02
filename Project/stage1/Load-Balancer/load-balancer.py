@@ -13,7 +13,7 @@ servers = []
 ports = []
 tmp_name ="my-flask-app"
 for i in range(int(number_servers)):
-    port = int(5000 + i)
+    port = int(5001 + i)
     #servers.append(tmp_name+":"+ str(port))
     servers.append(str(port))
     tmp_name = tmp_name+"a"
