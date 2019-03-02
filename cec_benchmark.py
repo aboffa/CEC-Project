@@ -27,6 +27,7 @@ def query_thread(addr, n, res):
 
     while n > 0:
         try:
+            #print(n)
             latency = requests.get("http://"+addr, headers={'Connection':'close'}).elapsed.total_seconds()
             if latency > 1:
                 # Docker suffers from a problem caused by a race condition related to iptables, which causes dropped SYN packets.
@@ -50,7 +51,7 @@ def query_thread(addr, n, res):
 def dispatcher(address, n_threads):
 
     requests_per_iteration = 60
-    
+
     print("# Stats from "+str(address)) 
     print("# [n], [mean], [std.], [min], [max]")
     for n in n_threads:
