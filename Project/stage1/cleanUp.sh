@@ -1,10 +1,22 @@
 #!/bin/bash
 
+#Name of containers
+NAME_HELLO_WORLD="my-hello-world-container"
+NAME_REDIS="my-redis-container"
+NAME_FLASK="my-flask-app"
+NAME_NETWORK="main-network"
+NAME_LOAD_BALANCER="load-balancer"
+
+#Number of Servers
+NUMBER_SERVERS=$1
+
+: '
 #Number of Servers
 NUMBER_SERVERS=$1
 NAME_NETWORK=$2
 NAME_REDIS=$3
 NAME_FLASK=$4
+'
 
 echo $@
 
@@ -15,15 +27,13 @@ sudo docker stop $NAME_REDIS
 
 sudo docker stop $NAME_FLASK
 
-#sudo docker stop $NAME_LOAD_BALANCER
+sudo docker stop $NAME_LOAD_BALANCER
 
 declare tmp_name=$NAME_FLASK
-declare -i port=0
 
 for ((i=0; i<$NUMBER_SERVERS;i++))
 do
    echo "$i)Stopping container"
-   port=$((5000+$i)) 
    sudo docker stop $tmp_name
    tmp_name+="a"
 done

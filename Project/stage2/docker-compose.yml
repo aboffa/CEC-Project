@@ -6,13 +6,11 @@ services:
     ports:
       - "5000-5011:80"  
     deploy:
-      replicas: 3
+      replicas: 5
       resources:
         limits:
           cpus: '0.05'
        
-    
-advertise-addr
   my-redis-container:
     image: "redis"
     volumes: 

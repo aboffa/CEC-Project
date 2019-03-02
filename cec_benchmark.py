@@ -50,7 +50,7 @@ def query_thread(addr, n, res):
         
 def dispatcher(address, n_threads):
 
-    requests_per_iteration = 60
+    requests_per_iteration = 1
     
     print("# Stats from "+str(address)) 
     print("# [n], [mean], [std.], [min], [max]")

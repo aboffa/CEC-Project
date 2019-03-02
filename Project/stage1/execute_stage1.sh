@@ -31,7 +31,7 @@ sudo docker run --rm --network $NAME_NETWORK --name $NAME_REDIS -v /var/cec/redi
 sleep 7
 
 #Http servers istances
-cd HTTP-server && ls -la &&  sudo docker build -t http-server:latest .
+cd HTTP-server &&  sudo docker build -t http-server:latest .
 
 declare tmp_name=$NAME_FLASK
 declare -i port=5000
@@ -42,6 +42,7 @@ do
    sudo docker run --cpus=".05" --rm --network $NAME_NETWORK --name $tmp_name -p $port:80 -d  http-server:latest
    port+=1
    tmp_name+="a"
+   sleep 1
 done
 : '
 sleep 5
@@ -59,13 +60,14 @@ cd .. && cd Load-Balancer && sudo docker build -t load-balancer .
 
 #docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $NAME_FLASK 
 
-sudo docker run --rm -e NUMBER_SERVERS=1 --network $NAME_NETWORK --name $NAME_LOAD_BALANCER -p 80:80 load-balancer
+sudo docker run --rm -e NUMBER_SERVERS=1 --network $NAME_NETWORK --name $NAME_LOAD_BALANCER -p 80:80 -d load-balancer
 
+sleep 1
 : '
 for ((i=0; i<$NUMBER_SERVERS;i++))
 do
     curl -L 0.0.0.0:80
 done
 '
-pwd
-cd .. && sudo bash cleanUp.sh $NUMBER_SERVERS $NAME_NETWORK $NAME_REDIS $NAME_FLASK
+
+#cd .. && sudo bash cleanUp.sh $NUMBER_SERVERS $NAME_NETWORK $NAME_REDIS $NAME_FLASK
