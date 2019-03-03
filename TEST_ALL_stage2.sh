@@ -1,32 +1,23 @@
 #!/bin/bash
 
-# 5 servers
+#STAGE 2
+
 cd Project/stage2 && sudo bash ./execute_stage2.sh
 
 cd /home/cecuser
 
 sudo docker ps -a 
 
-python3 cec_benchmark.py 0.0.0.0:80  | tee output-stage2-5.txt
+python3 -u cec_benchmark.py 0.0.0.0:800 | tee output-stage2-5.txt
+
+docker service  scale stage2_web=3
+
+python3 -u cec_benchmark.py 0.0.0.0:801 | tee output-stage2-3.txt
+
+docker service  scale stage2_web=1
+
+python3 -u cec_benchmark.py 0.0.0.0:802 | tee output-stage2-1.txt
 
 cd Project/stage2 && sudo bash ./cleanUp.sh 
 
-: '
-# 3 servers
-cd Project/stage1 && sudo bash ./execute_stage1.sh 3
-
 cd /home/cecuser
-
-python3 cec_benchmark.py 0.0.0.0:80 > output-stage1-3.txt
-
-cd Project/stage1 && sudo bash ./cleanUp.sh 3
-
-# 1 server
-cd Project/stage1 && sudo bash ./execute_stage1.sh 1
-
-cd /home/cecuser
-
-python3 cec_benchmark.py 0.0.0.0:80 > output-stage1-1.txt
-
-cd Project/stage1 && sudo bash ./cleanUp.sh 1
-'

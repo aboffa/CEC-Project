@@ -5,7 +5,7 @@ services:
     image: 127.0.0.1:5000/stage2
     build: ../stage1/HTTP-server
     ports:
-      - "80:80"
+      - "800:80"
     deploy:
       replicas: 5
       resources:
@@ -16,7 +16,7 @@ services:
     image: 127.0.0.1:5000/stage2
     build: ../stage1/HTTP-server
     ports:
-      - "81:80"
+      - "801:80"
     deploy:
       replicas: 3
       resources:
@@ -27,7 +27,7 @@ services:
     image: 127.0.0.1:5000/stage2
     build: ../stage1/HTTP-server
     ports:
-      - "82:80"
+      - "802:80"
     deploy:
       replicas: 1
       resources:

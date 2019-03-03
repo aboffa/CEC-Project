@@ -14,10 +14,6 @@ NAME_LOAD_BALANCER="load-balancer"
 #Number of Servers
 NUMBER_SERVERS=$1
 
-#Ports 
-PORT_SINGLE_HTTP=5000
-START_PORT=5000
-
 echo "Running container now:"
 sudo docker ps -a 
 
@@ -44,32 +40,13 @@ do
    tmp_name+="a"
    sleep 1
 done
-: '
-sleep 5
 
-port = 5000
-for ((i=0; i<$NUMBER_SERVERS;i++))
-do
-   port += 1
-   curl 0.0.0.0:$port
-done
-'
 #LoadBalancer 
 
 cd .. && cd Load-Balancer && sudo docker build -t load-balancer .
 
-#docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $NAME_FLASK 
-
-sudo docker run --rm -e NUMBER_SERVERS=1 --network $NAME_NETWORK --name $NAME_LOAD_BALANCER -p 80:80 -d load-balancer
+sudo docker run --rm -e NUMBER_SERVERS=$NUMBER_SERVERS --network $NAME_NETWORK --name $NAME_LOAD_BALANCER -p 80:80 -d load-balancer
 
 sleep 1
 
 sudo docker ps -a 
-: '
-for ((i=0; i<$NUMBER_SERVERS;i++))
-do
-    curl -L 0.0.0.0:80
-done
-'
-
-#cd .. && sudo bash cleanUp.sh $NUMBER_SERVERS $NAME_NETWORK $NAME_REDIS $NAME_FLASK

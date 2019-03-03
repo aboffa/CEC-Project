@@ -19,8 +19,12 @@ def factorial (n):
         result *= i
     return result
 
+@app.route('/ping')
+def ping() :
+    return "ok",200
+
 @app.route('/')
-def hello_world() :
+def factorial_computation() :
     try:
         key = r.randomkey()
         n = r.get(key)

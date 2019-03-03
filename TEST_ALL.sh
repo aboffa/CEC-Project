@@ -7,7 +7,7 @@ cd Project/stage1 && sudo bash ./execute_stage1.sh 5
 
 cd /home/cecuser
 
-python3 -u cec_benchmark.py 0.0.0.0:80  | tee output-stage1-5.txt
+python3 -u cec_benchmark.py 0.0.0.0:80  | tee output-stage1-5.csv
 
 cd Project/stage1 && sudo bash ./cleanUp.sh 5 
 
@@ -18,7 +18,7 @@ cd Project/stage1 && sudo bash ./execute_stage1.sh 3
 
 cd /home/cecuser
 
-python3 -u cec_benchmark.py 0.0.0.0:80 | tee output-stage1-3.txt
+python3 -u cec_benchmark.py 0.0.0.0:80 | tee output-stage1-3.csv
 
 cd Project/stage1 && sudo bash ./cleanUp.sh 3
 
@@ -29,7 +29,7 @@ cd Project/stage1 && sudo bash ./execute_stage1.sh 1
 
 cd /home/cecuser
 
-python3 -u  cec_benchmark.py 0.0.0.0:80 | tee output-stage1-1.txt
+python3 -u  cec_benchmark.py 0.0.0.0:80 | tee output-stage1-1.csv
 
 cd Project/stage1 && sudo bash ./cleanUp.sh 1
 
@@ -43,11 +43,11 @@ cd /home/cecuser
 
 sudo docker ps -a 
 
-python3 -u cec_benchmark.py 0.0.0.0:80 | tee output-stage2-5.txt
+python3 -u cec_benchmark.py 0.0.0.0:800 | tee output-stage2-5.csv
 
-python3 -u cec_benchmark.py 0.0.0.0:81 | tee output-stage2-3.txt
+python3 -u cec_benchmark.py 0.0.0.0:801 | tee output-stage2-3.csv
 
-python3 -u cec_benchmark.py 0.0.0.0:82 | tee output-stage2-1.txt
+python3 -u cec_benchmark.py 0.0.0.0:802 | tee output-stage2-1.csv
 
 cd Project/stage2 && sudo bash ./cleanUp.sh 
 
